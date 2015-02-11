@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ap">
+<head>
+    <title>The Acumen Project</title>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500|Oxygen:400,700,300|Open+Sans' rel='stylesheet' type='text/css'>
+    <!--link rel="stylesheet" href="http://acumen.lib.ua.edu/vendor/bootstrap/css/acumen-bootstrap.css"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://acumen.lib.ua.edu/assets/css/acumen.min.css">
+    <style>
+        body{
+            background-color: #fff;
+            padding-bottom: 30px;
+        }
+        .header{
+            background-color: #993333;
+            color: #f6f6f6;
+        }
+        .main{
+            padding-bottom: 30px;
+        }
+        .main-tabs{
+            margin-top: 35px;
+        }
+        .main-tabs > .tab-content{
+            margin-top: 15px;
+        }
+        .main-tabs > .nav-tabs > li > a{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .fields-table > tbody > tr > td:first-child{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="jumbotron header">
+    <div class="container">
+        <h1>The Acumen Project</h1>
+        <p>The University of Alabama Libraries' digital archives explorer.</p>
+    </div>
+</div>
+<div class="container main">
+    <div class="row">
+        <h2>Release notes <small><span class="label label-success">v<%=pkg.version%></span></small></h2>
+        <a href="http://acumen.lib.ua.edu/">http://acumen.lib.ua.edu/</a>
+
+        <tabset class="main-tabs">
+            <tab>
+                <tab-heading>
+                    Searchable Fields <span class="fa fa-fw fa-search"></span>
+                </tab-heading>
+                <div class="table-responsive">
+                    <table class="table table-striped fields-table">
+                        <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>MODs</th>
+                            <th>EAD</th>
+                            <th>Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>textAll <span class="label label-info">default</span></td>
+                            <td></td>
+                            <td></td>
+                            <td>Catch-all field for all indexed fields.</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>All <code>namePart</code>, except <em>Distributor</em></td>
+                            <td><code>origination</code>, <code>persname</code>, and <code>corpname</code></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td><code>titleInfo</code>, including types <code>alternative</code>, <code>uniform</code>, and <code>translated</code></td>
+                            <td><code>titleproper</code></td>
+                            <td>Fields for specific types of titles are searchable individually (see <em>additional fields</em> table below)</td>
+                        </tr>
+                        <tr>
+                            <td>subject</td>
+                            <td><code>subject</code></td>
+                            <td><code>subject</code></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>genre</td>
+                            <td><code>genre</code></td>
+                            <td><code>genreform</code></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>description</td>
+                            <td><code>note[@displayLabel='Description']</code>, and <code>abstract</code></td>
+                            <td><code>scopecontent/p</code>, and <code>bioghist/p</code></td>
+                            <td>The uniform title</td>
+                        </tr>
+                        <tr>
+                            <td>abstract</td>
+                            <td><code>abstract</code></td>
+                            <td></td>
+                            <td>This field will be removed once it is confirmed all abstracts have moved to description in the metadata.</td>
+                        </tr>
+                        <tr>
+                            <td>localbroad</td>
+                            <td></td>
+                            <td><code>subject[@source='localbroad']</code></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>transcript</td>
+                            <td></td>
+                            <td></td>
+                            <td>This field is populated via the database.</td>
+                        </tr>
+                        <tr>
+                            <td>tag</td>
+                            <td></td>
+                            <td></td>
+                            <td>This field is populated via the database.</td>
+                        </tr>
+                        <tr>
+                            <td>collection</td>
+                            <td><code>location/physicalLocation[@type='collection']</code>, and <code>location/physicalLocation[@displayLabel='Repository Collection']</code></td>
+                            <td><code>archdesc[@level='collection']</code></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>collection_number</td>
+                            <td><code>location/physicalLocation[@type='collectionNumber']</code></td>
+                            <td><code>titleproper/num</code></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>box_number</td>
+                            <td><code>location/physicalLocation[@type='boxNumber']</code></td>
+                            <td></td>
+                            <td>Also checks of alternate types <code>@type='box number'</code>, <code>@type='Box Number'</code>, and <code>@type='Box'</code></td>
+                        </tr>
+                        <tr>
+                            <td>folder_number</td>
+                            <td><code>location/physicalLocation[@type='folderNumber']</code></td>
+                            <td></td>
+                            <td>Also checks of alternate types <code>@type='folder number'</code>, <code>@type='folder Number'</code>, and <code>@type='folder'</code></td>
+                        </tr>
+                        <tr>
+                            <td>origin_place</td>
+                            <td><code>originInfo/place/placeTerm[@type='text']</code></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>language</td>
+                            <td><code>recordInfo/languageOfCataloging/languageTerm[@type = 'text']</code></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>language_code</td>
+                            <td><code>recordInfo/languageOfCataloging/languageTerm[@type = 'code']</code></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>extent</td>
+                            <td><code>physicalDescription/extent</code></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>table_of_contents</td>
+                            <td><code>ntableOfContents</code></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>date</td>
+                            <td><code>dateIssued</code>, <code>dateOther</code>, and <code>dateCreated</code></td>
+                            <td><code>unitdate</code></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>repo_loc</td>
+                            <td></td>
+                            <td></td>
+                            <td>The repository location/id (e.g., <code>u0001_2007001_0001832</code>)</td>
+                        </tr>
+                        <tr>
+                            <td>parent_loc</td>
+                            <td></td>
+                            <td></td>
+                            <td>The parent repository location/id (e.g., <code>u0001_2007001</code> is the parent location of child <code>u0001_2007001_0001832)</code></td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td><code>typeOfResource</code></td>
+                            <td>Always the string <em>Archived Collection</em> (was used in legacy Acumen to positively identify EADs)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>asset_type</td>
+                            <td></td>
+                            <td></td>
+                            <td>The media type of an asset file: <em>image, audio, video,</em> or <em>document (pdf)</em>. This field is populated by the database.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+            </tab>
+            <tab>
+                <tab-heading>
+                    New Features <span class="fa fa-fw fa-leaf"></span>
+                </tab-heading>
+                <div class="page-header">
+                    <h3>Direct asset linking from search results</h3>
+                </div>
+                <p>
+                    Assets that have no metadata file in the same <code>repo_loc</code> are now directly linked to in the search results
+                    if the search matches an asset's tag(s) or transcript. This was not possible in the legacy Acumen, as assets could not be
+                    directly linked to, unless there was a metadata file in the same <code>repo_loc</code>.
+                </p>
+
+                <div class="page-header">
+                    <h3>Search box improvements</h3>
+                </div>
+                <h4>Session based previous search</h4>
+                <p>
+                    Text in the search box will now only be saved for each session. This means that opening a new tab/browser and going to Acumen will no longer cause
+                    your previous search to auto-populate the search box's text field.
+                <div class="alert alert-warning" role="alert">This type of session means the search box will clear if a users refreshes their browser by pressing <kbd>F5</kbd></kbd></div>
+                </p>
+                <h4>URI Aware</h4>
+                <p>
+                    The search box in now aware of the URI. Linking to search results will not auto-populate the search text and select the correct search category
+                    (e.g., if you send a search for <em>'tall bike'</em> in <em>'images'</em>, the search box will select the <em>images</em> category and the text box will be populated
+                    with <em>tall bike</em>).
+                </p>
+
+                <div class="page-header">
+                    <h3>Improved image search</h3>
+                </div>
+                <p>
+                    The image search category has been set to also search based on <code>genre</code> for <em>photographs</em> or <em>"picture postcards"</em> (see section <em>Search Categories</em> tab).
+                </p>
+            </tab>
+            <tab>
+                <tab-heading>
+                    Search Categories<span class="fa fa-fw fa-filter"></span>
+                </tab-heading>
+                <p class="well lead">Search categories are determined by the following <a href="http://wiki.apache.org/solr/CommonQueryParameters#fq">Filter Queries</a></p>
+                <div class="table-responsive">
+                    <table class="table table-striped fields-table">
+                        <thead>
+                            <th>Category</th>
+                            <th>Filter Query</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>All</td>
+                                <td><em>None</em></td>
+                            </tr>
+                            <tr>
+                                <td>Audio</td>
+                                <td>{!lucene}asset_type:audio</td>
+                            </tr>
+                            <tr>
+                                <td>Books</td>
+                                <td>{!lucene}repo_loc:?0002*</td>
+                            </tr>
+                            <tr>
+                                <td>Finding Aids</td>
+                                <td>{!lucene}repo_loc:?0003* +type:Archived</td>
+                            </tr>
+                            <tr>
+                                <td>Images</td>
+                                <td>{!lucene}(repo_loc:(?0001* OR ?0011*) AND type:image) OR (genre:photographs OR genre:"picture postcards")</td>
+                            </tr>
+                            <tr>
+                                <td>Manuscript Materials</td>
+                                <td>{!lucene}repo_loc:?0003* -type:Archived</td>
+                            </tr>
+                            <tr>
+                                <td>Maps</td>
+                                <td>map AND asset_type:image -type:music</td>
+                            </tr>
+                            <tr>
+                                <td>Research</td>
+                                <td>{!lucene}repo_loc:?0015*</td>
+                            </tr>
+                            <tr>
+                                <td>Sheet Music</td>
+                                <td>{!lucene}repo_loc:?0004*</td>
+                            </tr>
+                            <tr>
+                                <td>University Archives</td>
+                                <td>{!lucene}repo_loc:?0006*</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+        </tabset>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+<script src="vendor.js"></script>
+<script>
+    angular.module('ap', ['ui.bootstrap']);
+</script>
+</body>
+</html>

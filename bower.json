@@ -1,0 +1,24 @@
+{
+  "name": "acumenproject",
+  "version": "0.1.0",
+  "homepage": "https://github.com/AcumenProject/acumenproject.github.io",
+  "authors": [
+    "Will Jones <will@8bitsquid.com>"
+  ],
+  "description": "Docs for the Aucmen Project",
+  "moduleType": [
+    "node"
+  ],
+  "license": "ECL-2.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-bootstrap": "~0.12.0"
+  }
+}
