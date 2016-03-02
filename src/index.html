@@ -57,7 +57,7 @@
                 </blockquote>
 
                 <div class="table-responsive">
-                    <table class="table table-striped fields-table">
+                    <table class="table table-striped table-bordered fields-table">
                         <thead>
                         <tr>
                             <th>Field</th>
@@ -71,7 +71,7 @@
                             <td>textAll <span class="label label-info">default</span></td>
                             <td></td>
                             <td></td>
-                            <td>Catch-all field for all indexed fields.</td>
+                            <td>Catch-all field for all content in metadata files. This field is always searched in combination with "boost queries" on specific fields</td>
                         </tr>
                         <tr>
                             <td>name</td>
@@ -197,7 +197,7 @@
                             <td>parent_loc</td>
                             <td></td>
                             <td></td>
-                            <td>The parent repository location/id (e.g., <code>u0001_2007001</code> is the parent location of child <code>u0001_2007001_0001832)</code></td>
+                            <td>The parent repository location/id (e.g., <code>u0001_2007001</code> is the parent location of child <code>u0001_2007001_0001832</code></td>
                         </tr>
                         <tr>
                             <td>type</td>
@@ -219,37 +219,49 @@
                 <tab-heading>
                     New Features <span class="fa fa-fw fa-leaf"></span>
                 </tab-heading>
-                <div class="page-header">
-                    <h3>Direct asset linking from search results</h3>
+
+                <div class="page-header" style="margin-top:60px;">
+                    <h2>Better ETD visibility in Google Scholar</h2>
                 </div>
                 <p>
-                    Assets that have no metadata file in the same <code>repo_loc</code> are now directly linked to in the search results
-                    if the search matches an asset's tag(s) or transcript. This was not possible in the legacy Acumen, as assets could not be
-                    directly linked to, unless there was a metadata file in the same <code>repo_loc</code>.
+                    ETDs in Acumen now provide the proper <code>&lt;meta&gt;</code> tags for indexing in Google Scholar.
                 </p>
 
-                <div class="page-header">
-                    <h3>Search box improvements</h3>
+                <div class="page-header" style="margin-top:60px;">
+                    <h2>New URL scheme</h2>
                 </div>
-                <h4>Session based previous search</h4>
                 <p>
-                    Text in the search box will now only be saved for each session. This means that opening a new tab/browser and going to Acumen will no longer cause
-                    your previous search to auto-populate the search box's text field.
-                <div class="alert alert-warning" role="alert">This type of session means the search box will clear if a users refreshes their browser by pressing <kbd>F5</kbd></kbd></div>
+                   Acumen now uses more traditional <code>/</code> based URLs for repository location instead of the <code>_</code> delimited repo IDs.
                 </p>
-                <h4>URI Aware</h4>
+                <div class="alert alert-info">
+                    <span class="fa fa-info-circle"></span> Redirects for old URLs are temporarily in place.
+                </div>
+                <div class="well">
+                    <span class="text-muted">Ex.</span><br>
+                    <strong>http://acumen.lib.ua.edu/w0001_2014001_0600103</strong> is now accessed via <strong>http://acumen.lib.ua.edu/w0001/2014001/0600103</strong>
+                </div>
+
+
+
+                <div class="page-header" style="margin-top:60px;">
+                    <h2>Redirect page for items or collections that may have moved</h2>
+                </div>
                 <p>
-                    The search box in now aware of the URI. Linking to search results will not auto-populate the search text and select the correct search category
-                    (e.g., if you send a search for <em>'tall bike'</em> in <em>'images'</em>, the search box will select the <em>images</em> category and the text box will be populated
-                    with <em>tall bike</em>).
+                   If an item or collection changes location in the repository, non PURL links will now display a redirect error page, giving a link
+                    to the possible new location.
                 </p>
 
-                <div class="page-header">
-                    <h3>Improved image search</h3>
+                <div class="alert alert-warning">
+                    <span class="fa fa-exclamation-triangle"></span> This feature is dependent on the nature of the how the item or collection was moved and/or restructured in the repository
+                    and is intended to be a "best guess" rather than a guaranteed link to the new location.
                 </div>
-                <p>
-                    The image search category has been set to also search based on <code>genre</code> for <em>photographs</em> or <em>"picture postcards"</em> (see section <em>Search Categories</em> tab).
-                </p>
+
+                <div class="well">
+                    <span class="text-muted">Ex.</span><br>
+                    Try accessing the old location of the "Guide to the Wallace Reid letters" to see it in action.<br>
+                    <a href="http://acumen.lib.ua.edu/dev/u0003/0004030">http://acumen.lib.ua.edu/dev/u0003/0004030</a>
+                </div>
+
             </tab>
             <tab>
                 <tab-heading>
@@ -285,7 +297,7 @@
                             </tr>
                             <tr>
                                 <td>Images</td>
-                                <td>{!lucene}(repo_loc:(?0001* OR ?0011*) AND type:image) OR (genre:photographs OR genre:"picture postcards")</td>
+                                <td>{!lucene}(repo_loc:(?0001* OR ?0011*) OR (genre:photographs OR genre:"picture postcards")) AND type:image</td>
                             </tr>
                             <tr>
                                 <td>Manuscript Materials</td>
