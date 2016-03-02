@@ -223,8 +223,13 @@
                 <div class="page-header" style="margin-top:60px;">
                     <h2>Better ETD visibility in Google Scholar</h2>
                 </div>
-                <p>
+                <p class="lead">
                     ETDs in Acumen now provide the proper <code>&lt;meta&gt;</code> tags for indexing in Google Scholar.
+                </p>
+                <p>
+                    These meta tags are generated from a <code>etd_meta_tags.xsl</code>
+                    file. Only metadata files with the <code>xmlns:etd</code> XML namespace will generate these meta tags.
+                    This method also opens the door to injecting custom <meta> tags for other metadata types and sub-types in the future; granted they have a unique namespace or identifier in the XML metadata.
                 </p>
 
                 <div class="page-header" style="margin-top:60px;">
@@ -241,10 +246,28 @@
                     <strong>http://acumen.lib.ua.edu/w0001_2014001_0600103</strong> is now accessed via <strong>http://acumen.lib.ua.edu/w0001/2014001/0600103</strong>
                 </div>
 
+                <h3>Metadata and asset files accessible without <code>/content/...</code> in URL</h3>
+                <p>
+                    The new URL scheme was meant to reflect a proper <em>folder</em> structure, which includes access to the metadata and asset files. Files previously
+                    accessibly only by <code>/content/path/to/file/path_to_file.pdf</code> can now be accessed via <code>/path/to/file/path_to_file.pdf</code>
+                </p>
+                <div class="alert alert-info">
+                    <span class="fa fa-info-circle"></span> Browsing of repository files and folder via your web browser is still accessible via <a href="http://acumen.lib.ua.edu/content/">http://acumen.lib.ua.edu/content/</a>
+                </div>
+                <div class="well">
+                    <div class="text-muted">Ex.</div>
+                    Both of these are valid URLs to access this item's PDF
+                    <ul>
+                        <li><strong>With</strong> '/content' - <a href="http://acumen.lib.ua.edu/content/u0015/0000001/0000001/u0015_0000001_0000001.pdf">http://acumen.lib.ua.edu/content/u0015/0000001/0000001/u0015_0000001_0000001.pdf</a></li>
+                        <li><strong>Without</strong> '/content' - <a href="http://acumen.lib.ua.edu/u0015/0000001/0000001/u0015_0000001_0000001.pdf">http://acumen.lib.ua.edu/u0015/0000001/0000001/u0015_0000001_0000001.pdf</a></li>
+                    </ul>
+
+                </div>
+
 
 
                 <div class="page-header" style="margin-top:60px;">
-                    <h2>Redirect page for items or collections that may have moved</h2>
+                    <h2>Redirect page for items or collections that <em>may</em> have moved</h2>
                 </div>
                 <p>
                    If an item or collection changes location in the repository, non PURL links will now display a redirect error page, giving a link
@@ -259,7 +282,7 @@
                 <div class="well">
                     <span class="text-muted">Ex.</span><br>
                     Try accessing the old location of the "Guide to the Wallace Reid letters" to see it in action.<br>
-                    <a href="http://acumen.lib.ua.edu/dev/u0003/0004030">http://acumen.lib.ua.edu/dev/u0003/0004030</a>
+                    <a href="http://acumen.lib.ua.edu/u0003/0004030">http://acumen.lib.ua.edu/u0003/0004030</a>
                 </div>
 
             </tab>
